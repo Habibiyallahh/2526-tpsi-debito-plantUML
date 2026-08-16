@@ -1,0 +1,47 @@
+@startuml
+left to right direction
+
+actor Automobilista
+actor Operatore
+actor Amministratore
+
+rectangle "Parcheggio automatizzato" {
+
+    usecase "Entrare nel parcheggio" as entra
+    usecase "Rilevare tipo di veicolo" as rileva
+    usecase "Emettere ticket" as emettereTicket
+    usecase "Aggiornare posti disponibili" as aggiornaPosti
+
+    usecase "Uscire dal parcheggio" as esci
+    usecase "Calcolare tariffa" as calcolaTariffa
+    usecase "Registrare pagamento" as registraPagamento
+
+    usecase "Visualizzare stato del parcheggio" as stato
+    usecase "Gestire ticket" as GestisciTicket
+    usecase "Segnalare anomalia" as segnalazione
+
+    usecase "Aggiornare tariffe" as aggiornaTariffe
+    usecase "Aggiungere o rimuovere posti" as gestisciPosti
+    usecase "Gestire operatori" as gestisciOperatori
+}
+
+Automobilista --> entra
+Automobilista --> esci
+
+Operatore --> stato
+Operatore --> GestisciTicket
+Operatore --> segnalazione
+
+Amministratore --> aggiornaTariffe
+Amministratore --> gestisciPosti
+Amministratore --> gestisciOperatori
+
+entra ..> rileva : <<include>>
+entra ..> emettereTicket : <<include>>
+entra ..> aggiornaPosti : <<include>>
+
+esci ..> calcolaTariffa : <<include>>
+esci ..> registraPagamento : <<include>>
+esci ..> aggiornaPosti : <<include>>
+
+@enduml

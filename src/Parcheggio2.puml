@@ -1,0 +1,68 @@
+@startuml
+
+abstract class Veicolo {
+    - targa : String
+}
+
+class Automobile {
+}
+
+class Moto {
+}
+
+class VeicoloCommerciale {
+}
+
+class Ticket {
+    - dataOraIngresso : DateTime
+    - dataOraUscita : DateTime
+    - importo : double
+    - pagato : boolean
+
+    + calcolaImporto() : double
+    + registraPagamento() : void
+}
+
+class Posto {
+    - numero : int
+    - occupato : boolean
+
+    + occupa() : void
+    + libera() : void
+}
+
+class Tariffa {
+    - tipoVeicolo : String
+    - costo : double
+
+    + calcolaImporto() : double
+}
+
+class ParcheggioManager {
+    + entra() : void
+    + esce() : void
+    + calcolaTariffa() : double
+    + registraPagamento() : void
+    + aggiornaPosti() : void
+    + visualizzaStato() : void
+    + gestisciTicket() : void
+    + segnalaAnomalia() : void
+    + aggiornaTariffe() : void
+    + aggiungiPosto() : void
+    + rimuoviPosto() : void
+    + gestisciOperatori() : void
+}
+
+Veicolo <|-- Automobile
+Veicolo <|-- Moto
+Veicolo <|-- VeicoloCommerciale
+
+Veicolo "1" -- "0..*" Ticket
+Ticket "1" -- "1" Posto
+Ticket "1" -- "1" Tariffa
+
+ParcheggioManager "1" -- "0..*" Posto
+ParcheggioManager "1" -- "0..*" Tariffa
+ParcheggioManager "1" -- "0..*" Ticket
+
+@enduml
